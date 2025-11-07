@@ -15,10 +15,14 @@ const MCP_SCHEMA: any = {
     {
       name: "send_sms",
       type: "action",
-      description: "Хэрэглэгчид SMS илгээдэг capability.",
-      returns: {
-        success: "boolean",
-      },
+      description:
+        "Хэрэглэгчээс SMS илгээх хүсэлт ирэхэд ашиглана. Жишээ: 'Над руу код илгээ' гэх мэт.",
+    },
+    {
+      name: "get_weather",
+      type: "action",
+      description:
+        "Хэрэглэгчээс Цаг агаарын мэдээлэл авах хүсэлт ирэхэд ашиглана. Жишээ: 'Цаг агаар ямар байна' гэх мэт.",
     },
   ],
 };
@@ -48,6 +52,10 @@ app.post("/execute", async (req: Request, res: Response) => {
       case "send_sms":
         await sendSms(body);
         return res.json({ success: true });
+
+      case "get_weather":
+        console.log(`📨 get_weather ->`);
+        return res.json({ success: true, data: "-5 хэм байна" });
 
       default:
         return res.status(400).json({ error: "Unknown action" });
